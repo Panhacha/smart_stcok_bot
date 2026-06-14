@@ -1,0 +1,58 @@
+{
+  "staff_menu": {
+    "keyboard": [
+      [
+        { "text": "🔍 ស្វែងរក / ពិនិត្យស្តុក" },
+        { "text": "📷 ស្កេនបាកូដ", "web_app": { "url": "https://your-domain.com/scanner" } }
+      ],
+      [
+        { "text": "🛒 បង់ប្រាក់រហ័ស" },
+        { "text": "⚠️ រាយការណ៍ទំនិញខូច" }
+      ]
+    ],
+    "resize_keyboard": true
+  },
+  "owner_menu": {
+    "keyboard": [
+      [
+        { "text": "🔍 ស្វែងរក / ពិនិត្យស្តុក" },
+        { "text": "📷 ស្កេនបាកូដ", "web_app": { "url": "https://your-domain.com/scanner" } }
+      ],
+      [
+        { "text": "🛒 បង់ប្រាក់រហ័ស" },
+        { "text": "⚠️ រាយការណ៍ទំនិញខូច" }
+      ],
+      [
+        { "text": "📊 របាយការណ៍ប្រចាំថ្ងៃ" },
+        { "text": "📊 របាយការណ៍ប្រចាំខែ" }
+      ],
+      [
+        { "text": "📥 ទាញយកជា Excel" },
+        { "text": "⚙️ កែប្រែស្តុកច្រើនដង" }
+      ],
+      [
+        { "text": "➕ បន្ថែមទំនិញថ្មី" },
+        { "text": "🏢 ការកំណត់សាខា" }
+      ],
+      [
+        { "text": "📋 មើលបញ្ជីទំនិញទាំងអស់" },
+        { "text": "📜 ប្រវត្តិស្តុក" }
+      ]
+    ],
+    "resize_keyboard": true
+  },
+  "cross_branch_check": {
+    "inline_keyboard": [
+      [
+        { "text": "🌐 ពិនិត្យមើលសាខាផ្សេងទៀត", "callback_data": "check_branch_stock_{item_id}" }
+      ]
+    ]
+  },
+  "undo_transaction": {
+    "inline_keyboard": [
+      [
+        { "text": "↩️ ត្រឡប់ប្រតិបត្តិការវិញ (30s)", "callback_data": "undo_txn_{txn_id}" }
+      ]
+    ]
+  }
+}
