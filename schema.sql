@@ -27,6 +27,7 @@ CREATE TABLE items (
     name VARCHAR(255) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     low_stock_threshold INTEGER DEFAULT 10,
+    is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc', now())
 );
 

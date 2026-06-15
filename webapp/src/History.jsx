@@ -99,13 +99,13 @@ function History() {
               const isDeduction = tx.type === 'sell' || tx.type === 'damage';
               
               return (
-                <div key={tx.id} className="list-item" style={{ padding: '16px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                    <div style={{ fontWeight: '600', fontSize: '15px' }}>{tx.items?.name || 'មិនស្គាល់ឈ្មោះ'}</div>
+                <div key={tx.id} className="list-item">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                    <div style={{ fontWeight: '600', fontSize: '16px', color: 'var(--text-main)' }}>{tx.items?.name || 'មិនស្គាល់ឈ្មោះ'}</div>
                     <div style={{ 
-                      fontWeight: 'bold', 
+                      fontWeight: '700', 
                       color: isDeduction ? 'var(--danger)' : 'var(--success)',
-                      fontSize: '16px'
+                      fontSize: '18px'
                     }}>
                       {isDeduction ? '-' : '+'}{tx.quantity}
                     </div>

@@ -10,7 +10,7 @@ def get_user(telegram_id: int):
     return response.data[0] if response.data else None
 
 def get_item_by_barcode(barcode: str):
-    response = supabase.table("items").select("*").eq("barcode", barcode).execute()
+    response = supabase.table("items").select("*").eq("barcode", barcode).eq("is_active", True).execute()
     return response.data[0] if response.data else None
 
 def add_new_item(barcode: str, name: str, price: float, branch_id: str, initial_stock: int):
@@ -116,8 +116,8 @@ def get_monthly_transactions(month_str: str = None):
     return response.data
 
 def get_all_inventory():
-    response = supabase.table("inventory").select("*, items(barcode, name, price), branches(name)").execute()
-    return response.data
+    response = supabase.table("inventory").select("*, items(barcode, name, price, is_active), branches(name)").execute()
+    return [item for item in response.data if item.get('items') and item.get('items', {}).get('is_active', True)]
 
 def upsert_inventory(item_id: str, branch_id: str, quantity_change: int):
     # Fetch current
@@ -137,7 +137,7 @@ def upsert_inventory(item_id: str, branch_id: str, quantity_change: int):
         return response.data[0] if response.data else None
 
 def get_all_branches():
-    response = supabase.table("branches").select("*").execute()
+    response = supabase.table("branches").select("*").eq("is_active", True).execute()
     return response.data
 
 def add_branch(name: str, location: str = ""):
@@ -145,16 +145,42 @@ def add_branch(name: str, location: str = ""):
     response = supabase.table("branches").insert(data).execute()
     return response.data[0] if response.data else None
 
-def set_user_branch(telegram_id: int, branch_id: str):
-    response = supabase.table("users").update({"branch_id": branch_id}).eq("telegram_id", telegram_id).execute()
+def delete_branch(branch_id: str):
+    # Set branch to inactive
+    response = supabase.table("branches").update({"is_active": False}).eq("id", branch_id).execute()
+    
+    # Optional: Unassign users from this branch so they are forced to pick a new one
+    supabase.table("users").update({"branch_id": None}).eq("branch_id", branch_id).execute()
+    
     return response.data[0] if response.data else None
 
-def update_user_role(telegram_id: int, role: str):
-    response = supabase.table("users").update({"role": role}).eq("telegram_id", telegram_id).execute()
+def set_user_branch(telegram_id: int, branch_id: str):
+    user = get_user(telegram_id)
+    if user:
+        response = supabase.table("users").update({"branch_id": branch_id}).eq("telegram_id", telegram_id).execute()
+    else:
+        response = supabase.table("users").insert({"telegram_id": telegram_id, "branch_id": branch_id}).execute()
+    return response.data[0] if response.data else None
+
+def update_user_role(telegram_id: int, role: str, full_name: str = None):
+    user = get_user(telegram_id)
+    data = {"role": role}
+    if full_name:
+        data["full_name"] = full_name
+        
+    if user:
+        response = supabase.table("users").update(data).eq("telegram_id", telegram_id).execute()
+    else:
+        data["telegram_id"] = telegram_id
+        response = supabase.table("users").insert(data).execute()
     return response.data[0] if response.data else None
 
 def search_item(query: str):
-    response = supabase.table("items").select("*").or_(f"name.ilike.%{query}%,barcode.eq.{query}").execute()
+    response = supabase.table("items").select("*").or_(f"name.ilike.%{query}%,barcode.eq.{query}").eq("is_active", True).execute()
+    return response.data
+
+def get_all_active_items():
+    response = supabase.table("items").select("*").eq("is_active", True).execute()
     return response.data
 
 def get_owners():
@@ -182,4 +208,12 @@ def report_damage(item_id: str, branch_id: str, user_id: int, quantity: int, pho
         "photo_file_id": photo_file_id
     }
     response = supabase.table("defect_logs").insert(data).execute()
+    return response.data[0] if response.data else None
+
+def delete_item(barcode: str):
+    response = supabase.table("items").update({"is_active": False}).eq("barcode", barcode).execute()
+    return response.data[0] if response.data else None
+
+def delete_item_by_id(item_id: str):
+    response = supabase.table("items").update({"is_active": False}).eq("id", item_id).execute()
     return response.data[0] if response.data else None

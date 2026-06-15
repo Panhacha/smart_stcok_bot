@@ -1,16 +1,72 @@
-# React + Vite
+# SmartStockBot - Telegram Mini App (Web App) 📱
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ឯកសារនេះរៀបរាប់លម្អិតអំពីផ្នែក **Web App (Frontend)** នៃគម្រោង SmartStockBot ដែលត្រូវបានបង្កើតឡើងដោយប្រើប្រាស់ **React.js** និង **Vite**។ វាត្រូវបានរចនាឡើងយ៉ាងពិសេសដើម្បីដំណើរការនៅខាងក្នុងកម្មវិធី Telegram ផ្ទាល់ (Telegram Web App) តែម្តង ដោយផ្តល់នូវបទពិសោធន៍ប្រើប្រាស់យ៉ាងរលូន និងទំនើប។
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🌟 អ្វីទៅជា Web App នេះ?
 
-## React Compiler
+នៅក្នុងប្រព័ន្ធ SmartStockBot នេះ Web App ដើរតួជាផ្ទាំងបញ្ជា (User Interface) សម្រាប់អោយអ្នកប្រើប្រាស់ធ្វើអន្តរកម្មជាមួយទិន្នន័យ ដែលមានផ្ទាំងសំខាន់ៗចំនួន ៣៖
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+១. **ផ្ទាំងលក់ទំនិញ (Staff POS)**:
+   - ជាផ្ទាំងសម្រាប់បុគ្គលិក (Staff)។
+   - មានមុខងារប្រើប្រាស់កាមេរ៉ាទូរស័ព្ទដើម្បីស្កេនបាកូដ (Barcode) ទំនិញ។
+   - អាចកាត់ស្តុកលក់បានយ៉ាងលឿនត្រឹមតែមួយចុច។
+   - បង្ហាញប្រវត្តិលក់ថ្មីៗដែលបុគ្គលិកទើបនឹងលក់បាន។
 
-## Expanding the ESLint configuration
+២. **ផ្ទាំងសង្ខេបម្ចាស់ហាង (Owner Dashboard)**:
+   - ជាផ្ទាំងសម្រាប់ម្ចាស់ហាង (Owner)។
+   - បង្ហាញសេចក្តីសង្ខេបអំពីទិន្នន័យលក់ប្រចាំថ្ងៃ (ចំណូលសរុបជាប្រាក់ និងចំនួនទំនិញដែលបានលក់)។
+   - មានតារាងបង្ហាញទំនិញណាដែលជិតអស់ពីស្តុក (ចំនួនសល់តិចជាង ១០) ដើម្បីអោយម្ចាស់ហាងងាយស្រួលរៀបចំទិញចូល។
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+៣. **ផ្ទាំងប្រវត្តិ (History)**:
+   - បង្ហាញប្រវត្តិប្រតិបត្តិការទាំងអស់ (ការលក់, ការខូចខាត, ការកែតម្រូវ, ការបញ្ចូលស្តុក)។
+   - អាចត្រង (Filter) មើលទិន្នន័យតាមកាលបរិច្ឆេទ (ថ្ងៃខែឆ្នាំ)។
+
+
+## 🛠 បច្ចេកវិទ្យាដែលប្រើប្រាស់ (Tech Stack)
+
+- **Framework**: React.js ជាមួយ Vite (ដើម្បីអោយដំណើរការលឿន)
+- **Icons**: `lucide-react` (សម្រាប់រូបតំណាងស្អាតៗ)
+- **Database Connection**: `@supabase/supabase-js` (សម្រាប់ភ្ជាប់ទៅកាន់ Database ដោយផ្ទាល់)
+- **Telegram Integration**: `window.Telegram.WebApp` (សម្រាប់ចាប់យកព័ត៌មានអ្នកប្រើប្រាស់ពី Telegram)
+
+
+## 🚀 របៀបដំណើរការកូដ (How to Run Locally)
+
+ដើម្បីដំណើរការ Web App នេះនៅលើកុំព្យូទ័ររបស់អ្នក សូមអនុវត្តតាមជំហានខាងក្រោម៖
+
+### ១. ដំឡើងកញ្ចប់ទិន្នន័យ (Install Dependencies)
+សូមប្រាកដថាអ្នកបានបញ្ជា Terminal ចូលមកក្នុងថត `webapp` រួចហើយទើបវាយពាក្យ៖
+```bash
+npm install
+```
+
+### ២. ដំណើរការ (Run Server)
+```bash
+npm run dev
+```
+បន្ទាប់ពី Run រួច វានឹងផ្តល់នូវតំណភ្ជាប់ (ឧទាហរណ៍ `http://localhost:5173/`)។
+
+### ៣. ភ្ជាប់ជាមួយ Telegram
+ដើម្បីអោយ Telegram Bot អាចអាន Web App នេះបាននៅពេលកំពុង Develop អ្នកត្រូវប្រើប្រាស់កម្មវិធីដូចជា **ngrok** ដើម្បីបម្លែង `localhost` ទៅជា HTTPS URL ជាមុនសិន។
+
+---
+
+## 📁 រចនាសម្ព័ន្ធឯកសារក្នុង Web App
+
+```text
+webapp/
+├── src/
+│   ├── App.jsx             # ឯកសារចម្បងដែលកំណត់សិទ្ធិអ្នកប្រើ និងប្តូរទំព័រ
+│   ├── Dashboard.jsx       # កូដសម្រាប់ផ្ទាំង Owner Dashboard
+│   ├── POS.jsx             # កូដសម្រាប់ផ្ទាំង Staff POS (ស្កេនលក់)
+│   ├── History.jsx         # កូដសម្រាប់ផ្ទាំងប្រវត្តិលក់
+│   ├── index.css           # ឯកសាររចនាពណ៌ និងទម្រង់ Layout (CSS)
+│   ├── App.css             # ឯកសាររចនាជំនួយបន្ថែម
+│   └── supabaseClient.js   # ឯកសារកំណត់ការតភ្ជាប់ទៅកាន់ Supabase
+│
+├── index.html              # ឯកសារ HTML ដើម (មានភ្ជាប់ Script របស់ Telegram)
+├── package.json            # បញ្ជីកញ្ចប់បច្ចេកវិទ្យាដែលប្រើ (Dependencies)
+└── vite.config.js          # ឯកសារកំណត់របស់ Vite
+```

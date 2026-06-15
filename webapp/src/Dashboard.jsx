@@ -48,53 +48,57 @@ function Dashboard() {
 
   return (
     <div className="animate-fade-in">
-      <h3 style={{marginBottom: '20px', color: 'var(--text-muted)'}}>សេចក្តីសង្ខេបថ្ងៃនេះ</h3>
+      <h3 style={{marginBottom: '20px', color: 'var(--text-muted)', fontSize: '18px', fontWeight: '500'}}>សេចក្តីសង្ខេបថ្ងៃនេះ</h3>
       
-      <div className="card-grid" style={{marginTop: '0'}}>
-        <div className="glass-panel" style={{padding: '16px'}}>
-          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px'}}>
+      <div className="card-grid">
+        <div className="glass-panel" style={{padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px'}}>
+          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
             <div className="stat-label">ចំណូលសរុប</div>
-            <div style={{padding: '8px', background: 'rgba(16, 185, 129, 0.2)', borderRadius: '8px', color: 'var(--success)'}}>
-              <DollarSign size={20} />
+            <div style={{padding: '10px', background: 'rgba(16, 185, 129, 0.15)', borderRadius: '12px', color: 'var(--success)'}}>
+              <DollarSign size={24} />
             </div>
           </div>
           <div className="stat-value">${revenue.toFixed(2)}</div>
         </div>
 
-        <div className="glass-panel" style={{padding: '16px'}}>
-          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px'}}>
+        <div className="glass-panel" style={{padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px'}}>
+          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
             <div className="stat-label">លក់ចេញសរុប</div>
-            <div style={{padding: '8px', background: 'rgba(59, 130, 246, 0.2)', borderRadius: '8px', color: 'var(--primary)'}}>
-              <PackageMinus size={20} />
+            <div style={{padding: '10px', background: 'rgba(59, 130, 246, 0.15)', borderRadius: '12px', color: 'var(--primary)'}}>
+              <PackageMinus size={24} />
             </div>
           </div>
           <div className="stat-value">{itemsSold} មុខ</div>
         </div>
       </div>
 
-      <div className="glass-panel" style={{marginTop: '20px'}}>
-        <div style={{display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', color: 'var(--warning)'}}>
-          <AlertCircle size={20} />
-          <h4 style={{margin: 0, color: 'var(--text-main)'}}>ទំនិញជិតអស់ស្តុក</h4>
+      <div className="glass-panel" style={{marginTop: '24px', padding: 0, overflow: 'hidden'}}>
+        <div style={{padding: '20px', borderBottom: '1px solid var(--glass-border)'}}>
+          <div style={{display: 'flex', alignItems: 'center', gap: '12px', color: 'var(--warning)'}}>
+            <AlertCircle size={24} />
+            <h3 style={{margin: 0, color: 'var(--text-main)', fontSize: '18px', fontWeight: '600'}}>ទំនិញជិតអស់ស្តុក</h3>
+          </div>
         </div>
         
         {lowStockItems.length === 0 ? (
-          <div style={{color: 'var(--text-muted)', textAlign: 'center', padding: '10px'}}>គ្មានទំនិញជិតអស់ស្តុកទេ</div>
+          <div style={{color: 'var(--text-muted)', textAlign: 'center', padding: '32px'}}>គ្មានទំនិញជិតអស់ស្តុកទេ</div>
         ) : (
-          lowStockItems.map((item, index) => (
-            <div key={index} className="list-item" style={{padding: '12px 0'}}>
-              <div>
-                <div style={{fontWeight: '600'}}>{item.items?.name || 'មិនស្គាល់ឈ្មោះ'}</div>
-                <div style={{fontSize: '12px', color: 'var(--text-muted)'}}>បាកូដ: {item.items?.barcode}</div>
+          <div>
+            {lowStockItems.map((item, index) => (
+              <div key={index} className="list-item">
+                <div style={{display: 'flex', flexDirection: 'column', gap: '4px'}}>
+                  <div style={{fontWeight: '600', fontSize: '16px', color: 'var(--text-main)'}}>{item.items?.name || 'មិនស្គាល់ឈ្មោះ'}</div>
+                  <div style={{fontSize: '14px', color: 'var(--text-muted)'}}>បាកូដ: {item.items?.barcode}</div>
+                </div>
+                <div className="badge" style={{
+                  background: item.quantity <= 0 ? 'rgba(239, 68, 68, 0.15)' : 'rgba(245, 158, 11, 0.15)', 
+                  color: item.quantity <= 0 ? 'var(--danger)' : 'var(--warning)'
+                }}>
+                  សល់ {item.quantity}
+                </div>
               </div>
-              <div className="badge" style={{
-                background: item.quantity <= 0 ? 'rgba(239, 68, 68, 0.2)' : 'rgba(245, 158, 11, 0.2)', 
-                color: item.quantity <= 0 ? 'var(--danger)' : 'var(--warning)'
-              }}>
-                សល់ {item.quantity}
-              </div>
-            </div>
-          ))
+            ))}
+          </div>
         )}
       </div>
     </div>

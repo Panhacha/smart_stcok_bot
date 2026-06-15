@@ -1,0 +1,122 @@
+[
+  {
+    "item_id": "541d6846-a322-40e2-9984-542c617d97c8",
+    "branch_id": "c20f2b74-7a91-4129-aadd-43ff5898fa93",
+    "quantity": 20,
+    "updated_at": "2026-06-14T04:02:50.410131+00:00",
+    "items": {
+      "name": "ស្រា",
+      "price": 280000.0,
+      "barcode": "02121",
+      "is_active": true
+    },
+    "branches": {
+      "name": "khmer"
+    }
+  },
+  {
+    "item_id": "c9918928-5921-49d9-b16e-a70d0be1d98a",
+    "branch_id": "c20f2b74-7a91-4129-aadd-43ff5898fa93",
+    "quantity": 100,
+    "updated_at": "2026-06-14T04:17:56.744947+00:00",
+    "items": {
+      "name": "ស្ព្រៃត៍ កំប៉ុង",
+      "price": 0.5,
+      "barcode": null,
+      "is_active": true
+    },
+    "branches": {
+      "name": "khmer"
+    }
+  },
+  {
+    "item_id": "1d68b94f-15ff-4ff8-99e5-4d858367b659",
+    "branch_id": "c20f2b74-7a91-4129-aadd-43ff5898fa93",
+    "quantity": 20,
+    "updated_at": "2026-06-14T04:18:27.899649+00:00",
+    "items": {
+      "name": "អង្ករ ១០គីឡូ",
+      "price": 9.0,
+      "barcode": null,
+      "is_active": true
+    },
+    "branches": {
+      "name": "khmer"
+    }
+  },
+  {
+    "item_id": "3f2d2b49-f9f9-4591-8288-09e6b7ca0de2",
+    "branch_id": "c20f2b74-7a91-4129-aadd-43ff5898fa93",
+    "quantity": 98,
+    "updated_at": "2026-06-14T04:37:30.794945+00:00",
+    "items": {
+      "name": "អំបិល ១គីឡូ",
+      "price": 0.5,
+      "barcode": null,
+      "is_active": true
+    },
+    "branches": {
+      "name": "khmer"
+    }
+  },
+  {
+    "item_id": "c9918928-5921-49d9-b16e-a70d0be1d98a",
+    "branch_id": "2cdbc7c9-7db0-481a-85a1-cf9dfb2433b1",
+    "quantity": 0,
+    "updated_at": "2026-06-14T06:30:49.26484+00:00",
+    "items": {
+      "name": "ស្ព្រៃត៍ កំប៉ុង",
+      "price": 0.5,
+      "barcode": null,
+      "is_active": true
+    },
+    "branches": {
+      "name": "Gng"
+    }
+  },
+  {
+    "item_id": "541d6846-a322-40e2-9984-542c617d97c8",
+    "branch_id": "2cdbc7c9-7db0-481a-85a1-cf9dfb2433b1",
+    "quantity": 50,
+    "updated_at": "2026-06-14T06:29:22.3098+00:00",
+    "items": {
+      "name": "ស្រា",
+      "price": 280000.0,
+      "barcode": "02121",
+      "is_active": true
+    },
+    "branches": {
+      "name": "Gng"
+    }
+  },
+  {
+    "item_id": "1d68b94f-15ff-4ff8-99e5-4d858367b659",
+    "branch_id": "2cdbc7c9-7db0-481a-85a1-cf9dfb2433b1",
+    "quantity": 20,
+    "updated_at": "2026-06-14T06:31:48.431806+00:00",
+    "items": {
+      "name": "អង្ករ ១០គីឡូ",
+      "price": 9.0,
+      "barcode": null,
+      "is_active": true
+    },
+    "branches": {
+      "name": "Gng"
+    }
+  },
+  {
+    "item_id": "3f2d2b49-f9f9-4591-8288-09e6b7ca0de2",
+    "branch_id": "2cdbc7c9-7db0-481a-85a1-cf9dfb2433b1",
+    "quantity": 1,
+    "updated_at": "2026-06-14T06:32:14.210181+00:00",
+    "items": {
+      "name": "អំបិល ១គីឡូ",
+      "price": 0.5,
+      "barcode": null,
+      "is_active": true
+    },
+    "branches": {
+      "name": "Gng"
+    }
+  }
+]

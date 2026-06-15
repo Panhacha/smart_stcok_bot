@@ -1,0 +1,299 @@
+[
+  {
+    "id": "541d6846-a322-40e2-9984-542c617d97c8",
+    "barcode": "02121",
+    "name": "ស្រា",
+    "price": 280000.0,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:02:50.129473+00:00",
+    "is_active": true
+  },
+  {
+    "id": "c9918928-5921-49d9-b16e-a70d0be1d98a",
+    "barcode": null,
+    "name": "ស្ព្រៃត៍ កំប៉ុង",
+    "price": 0.5,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:17:55.847179+00:00",
+    "is_active": true
+  },
+  {
+    "id": "1d68b94f-15ff-4ff8-99e5-4d858367b659",
+    "barcode": null,
+    "name": "អង្ករ ១០គីឡូ",
+    "price": 9.0,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:18:27.616337+00:00",
+    "is_active": true
+  },
+  {
+    "id": "3f2d2b49-f9f9-4591-8288-09e6b7ca0de2",
+    "barcode": null,
+    "name": "អំបិល ១គីឡូ",
+    "price": 0.5,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:30.578978+00:00",
+    "is_active": true
+  },
+  {
+    "id": "1888dee9-7347-473a-ac16-8a41cc6f8853",
+    "barcode": null,
+    "name": "កូកាកូឡា កំប៉ុង",
+    "price": 0.5,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:17:49.410336+00:00",
+    "is_active": false
+  },
+  {
+    "id": "113735a0-603b-4354-a5cd-4a06dc30ff4d",
+    "barcode": null,
+    "name": "សាប៊ូបោកខោអាវ អូម៉ូ",
+    "price": 1.8,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:25.330194+00:00",
+    "is_active": false
+  },
+  {
+    "id": "a7dc8be8-60d4-406a-a7bb-857273012054",
+    "barcode": null,
+    "name": "សាប៊ូកក់សក់ សាន់ស៊ីល",
+    "price": 2.5,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:34:46.385804+00:00",
+    "is_active": false
+  },
+  {
+    "id": "50e97bba-849a-4326-9756-d6e772548482",
+    "barcode": null,
+    "name": "នំ ស្ទីក",
+    "price": 0.5,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:33.267887+00:00",
+    "is_active": false
+  },
+  {
+    "id": "812e9d68-edee-49ea-9af0-0828eec4fcfe",
+    "barcode": null,
+    "name": "ក្រដាសអនាម័យ",
+    "price": 1.0,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:18:42.909097+00:00",
+    "is_active": false
+  },
+  {
+    "id": "4bb1df73-d826-4d4d-b84d-32839945bc3e",
+    "barcode": null,
+    "name": "ប៊ីចេង",
+    "price": 0.8,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:31.047991+00:00",
+    "is_active": false
+  },
+  {
+    "id": "c6c19814-1d0b-4d83-8f2e-d1965732b8e5",
+    "barcode": null,
+    "name": "ទឹកក្រូច",
+    "price": 50000.0,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:15:32.434096+00:00",
+    "is_active": false
+  },
+  {
+    "id": "f134ffac-2f03-4a2f-aaf6-b8a35117e748",
+    "barcode": null,
+    "name": "សាប៊ូដុសខ្លួន",
+    "price": 1.5,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:18:34.875064+00:00",
+    "is_active": false
+  },
+  {
+    "id": "b1d6d13f-bb33-4822-9621-db126adaab0b",
+    "barcode": null,
+    "name": "ទឹកបរិសុទ្ធ វីតាល់",
+    "price": 0.25,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:17:39.72651+00:00",
+    "is_active": false
+  },
+  {
+    "id": "78a1d59f-f9d8-4035-8835-f31e91f4236e",
+    "barcode": null,
+    "name": "ទឹកផ្លែឈើ យូនីហ្វ",
+    "price": 1.0,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:26.259803+00:00",
+    "is_active": false
+  },
+  {
+    "id": "f470be6f-d65d-4b54-b522-c593d4fd60ab",
+    "barcode": null,
+    "name": "ថង់ប្លាស្ទិក",
+    "price": 1.0,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:34.324107+00:00",
+    "is_active": false
+  },
+  {
+    "id": "23cf9740-f16c-4ee9-81c8-45472623037d",
+    "barcode": null,
+    "name": "នំប៉័ងសាំងវិច",
+    "price": 1.2,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:27.041812+00:00",
+    "is_active": false
+  },
+  {
+    "id": "f79c5935-8f6c-4aef-98a4-9a467d30f8b6",
+    "barcode": null,
+    "name": "ស៊ុតមាន់ ១០គ្រាប់",
+    "price": 1.5,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:28.439597+00:00",
+    "is_active": false
+  },
+  {
+    "id": "0d2bedfc-bfc4-4219-913f-67a7883ab810",
+    "barcode": null,
+    "name": "ទឹកលាងចាន",
+    "price": 0.9,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:33:40.247323+00:00",
+    "is_active": false
+  },
+  {
+    "id": "dfa43a6d-f42d-448c-bd06-8a89dfe2e053",
+    "barcode": null,
+    "name": "ទឹកអនាម័យ",
+    "price": 2.0,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:36.698771+00:00",
+    "is_active": false
+  },
+  {
+    "id": "0f7e1346-939b-402e-af42-28c71d75ac84",
+    "barcode": null,
+    "name": "ប្រេងឆា ១លីត្រ",
+    "price": 2.2,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:31.568519+00:00",
+    "is_active": false
+  },
+  {
+    "id": "23b1f3a1-600d-434b-8bfd-f5ff7ce3d698",
+    "barcode": null,
+    "name": "ទឹកប៉េងប៉ោះ",
+    "price": 0.6,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:32.720065+00:00",
+    "is_active": false
+  },
+  {
+    "id": "328f3be4-6933-4a0c-90fb-6f52f872feef",
+    "barcode": null,
+    "name": "ទឹកក្រូចក្រហម",
+    "price": 70000.0,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:16:08.71015+00:00",
+    "is_active": false
+  },
+  {
+    "id": "dbba75d8-7cb6-4375-99dd-bfaa4208c062",
+    "barcode": null,
+    "name": "គោជល់",
+    "price": 0.6,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:18:02.213159+00:00",
+    "is_active": false
+  },
+  {
+    "id": "25bd3233-fbd7-4838-b9cf-b63910fedcb2",
+    "barcode": null,
+    "name": "ទឹកក្រូច ហ្វាន់តា",
+    "price": 0.5,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:25.80844+00:00",
+    "is_active": false
+  },
+  {
+    "id": "a6518c36-fb9c-4660-a1c5-dc36d417d056",
+    "barcode": null,
+    "name": "សាប៊ូកក់សក់ សាន់ស៊ីល",
+    "price": 2.5,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:24.893745+00:00",
+    "is_active": false
+  },
+  {
+    "id": "4c434f3f-558f-4464-a2ea-6ed79c4e2a7e",
+    "barcode": null,
+    "name": "ម្សៅកូនក្មេង",
+    "price": 1.8,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:37.174504+00:00",
+    "is_active": false
+  },
+  {
+    "id": "f55a8b9a-6771-429f-a3fb-334b287deff3",
+    "barcode": null,
+    "name": "ទឹកសុីរ៉ូ ក្រហម",
+    "price": 1.2,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:29.492501+00:00",
+    "is_active": false
+  },
+  {
+    "id": "92d73c50-2161-4f36-97e6-26ddf9380edd",
+    "barcode": null,
+    "name": "ស្ករគ្រាប់ ហាគូល",
+    "price": 0.2,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:33.698502+00:00",
+    "is_active": false
+  },
+  {
+    "id": "b3f230db-8e8c-43b4-9a59-81f51ec1507e",
+    "barcode": null,
+    "name": "តែបៃតង អូអ៊ីឈិ",
+    "price": 0.75,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:18:09.341364+00:00",
+    "is_active": false
+  },
+  {
+    "id": "a6f9778d-e83c-4257-904b-a1d0332472bd",
+    "barcode": null,
+    "name": "ស្ករស ១គីឡូ",
+    "price": 1.1,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:30.067086+00:00",
+    "is_active": false
+  },
+  {
+    "id": "aba7f8c4-de4f-48cf-b336-21cd93895b6e",
+    "barcode": null,
+    "name": "ច្រាសដុសធ្មេញ",
+    "price": 0.8,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:35.202418+00:00",
+    "is_active": false
+  },
+  {
+    "id": "02b0af85-589f-43c9-ab81-e8538506d6d5",
+    "barcode": null,
+    "name": "ទឹកម្ទេស ដបតូច",
+    "price": 0.6,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:32.037128+00:00",
+    "is_active": false
+  },
+  {
+    "id": "5c45fed2-818e-4afd-82e0-436341840971",
+    "barcode": null,
+    "name": "សាប៊ូលាងដៃ",
+    "price": 1.5,
+    "low_stock_threshold": 10,
+    "created_at": "2026-06-14T04:37:36.011188+00:00",
+    "is_active": false
+  }
+]

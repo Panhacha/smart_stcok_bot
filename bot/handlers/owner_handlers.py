@@ -15,6 +15,7 @@ class OwnerStates(StatesGroup):
     waiting_for_new_item = State()
     waiting_for_report_date = State()
     waiting_for_report_month = State()
+    waiting_for_delete_item = State()
 
 @router.message(F.text == "📊 របាយការណ៍ប្រចាំថ្ងៃ")
 async def cb_daily_report(message: types.Message, state: FSMContext):
@@ -67,6 +68,7 @@ async def generate_and_send_report(message: types.Message, date_str: str):
     total_sales = 0
     total_items_sold = 0
     total_damage = 0
+    total_deleted = 0
     
     # Store aggregated sales per item: { 'item_name': {'qty': x, 'price': y, 'total': z} }
     sold_items = {}
@@ -89,6 +91,9 @@ async def generate_and_send_report(message: types.Message, date_str: str):
         elif txn['type'] == 'damage':
             total_damage += txn['quantity']
             
+        elif txn['type'] == 'delete':
+            total_deleted += 1
+            
     report_text = f"📊 **របាយការណ៍លក់ប្រចាំថ្ងៃ: {display_date}**\n"
     report_text += "-----------------------\n"
     
@@ -104,6 +109,8 @@ async def generate_and_send_report(message: types.Message, date_str: str):
     report_text += f"🛒 ចំនួនទំនិញលក់ចេញសរុប: {total_items_sold}\n"
     report_text += f"💵 ចំណូលសរុប: ${total_sales:.2f}\n"
     report_text += f"⚠️ ចំនួនទំនិញខូចខាត: {total_damage}\n"
+    if total_deleted > 0:
+        report_text += f"🗑 ចំនួនទំនិញដែលបានលុប: {total_deleted}\n"
     
     await message.answer(report_text, parse_mode="Markdown")
     return True
@@ -141,6 +148,7 @@ async def generate_and_send_monthly_report(message: types.Message, month_str: st
     total_sales = 0
     total_items_sold = 0
     total_damage = 0
+    total_deleted = 0
     
     sold_items = {}
 
@@ -161,6 +169,9 @@ async def generate_and_send_monthly_report(message: types.Message, month_str: st
                 
         elif txn['type'] == 'damage':
             total_damage += txn['quantity']
+            
+        elif txn['type'] == 'delete':
+            total_deleted += 1
             
     report_text = f"📊 **របាយការណ៍លក់ប្រចាំខែ: {display_month}**\n"
     report_text += "-----------------------\n"
@@ -316,7 +327,8 @@ async def cb_stock_history(message: types.Message):
         'sell': [],
         'batch_update': [],
         'damage': [],
-        'undo': []
+        'undo': [],
+        'delete': []
     }
     
     for txn in transactions:
@@ -332,10 +344,11 @@ async def cb_stock_history(message: types.Message):
         ('batch_update', '⚙️ **កែតម្រូវ (Batch Update)**', ''),
         ('damage', '⚠️ **ខូចខាត (Damage)**', '-'),
         ('undo', '↩️ **ត្រលប់ប្រតិបត្តិការ (Undo)**', '+'),
+        ('delete', '🗑 **លុបទំនិញ (Delete)**', ''),
     ]
     
     for key, title, sign in sections:
-        if grouped_txns[key]:
+        if grouped_txns.get(key):
             text += f"{title}\n"
             for txn in grouped_txns[key]:
                 item_name = txn.get('items', {}).get('name', 'N/A') if txn.get('items') else 'N/A'
@@ -349,7 +362,10 @@ async def cb_stock_history(message: types.Message):
                 except:
                     time_str = "N/A"
                     
-                text += f"• `{time_str}` | {item_name} ({sign}{qty})\n"
+                if key == 'delete':
+                    text += f"• `{time_str}` | {item_name}\n"
+                else:
+                    text += f"• `{time_str}` | {item_name} ({sign}{qty})\n"
                 
                 # Telegram max length is 4096, split if too long
                 if len(text) > 3800:
@@ -369,8 +385,50 @@ async def cb_branch_settings(message: types.Message):
         builder.row(types.InlineKeyboardButton(text=f"🏢 {b['name']}", callback_data=f"select_branch_{b['id']}"))
         
     builder.row(types.InlineKeyboardButton(text="➕ បន្ថែមសាខាថ្មី", callback_data="add_new_branch"))
+    builder.row(types.InlineKeyboardButton(text="🗑 លុបសាខា", callback_data="delete_branch_menu"))
     
     await message.answer("សូមជ្រើសរើសសាខា ឬបន្ថែមសាខាថ្មី៖", reply_markup=builder.as_markup())
+
+@router.callback_query(F.data == "delete_branch_menu")
+async def cb_delete_branch_menu(callback: types.CallbackQuery):
+    branches = supabase_client.get_all_branches()
+    if not branches:
+        await callback.message.edit_text("មិនមានសាខាសម្រាប់លុបទេ។")
+        return
+        
+    builder = InlineKeyboardBuilder()
+    for b in branches:
+        builder.row(types.InlineKeyboardButton(text=f"🗑 លុបសាខា: {b['name']}", callback_data=f"confirm_del_branch_{b['id']}"))
+    
+    builder.row(types.InlineKeyboardButton(text="❌ បោះបង់", callback_data="cancel_del_branch"))
+    await callback.message.edit_text("សូមជ្រើសរើសសាខាដែលអ្នកចង់លុបចោល៖", reply_markup=builder.as_markup())
+    
+@router.callback_query(F.data.startswith("confirm_del_branch_"))
+async def cb_confirm_del_branch(callback: types.CallbackQuery):
+    branch_id = callback.data.split("confirm_del_branch_")[1]
+    
+    branches = supabase_client.get_all_branches()
+    branch_name = next((b['name'] for b in branches if b['id'] == branch_id), "មិនស្គាល់")
+    
+    builder = InlineKeyboardBuilder()
+    builder.row(
+        types.InlineKeyboardButton(text="បាទ/ចាស", callback_data=f"do_del_branch_{branch_id}"),
+        types.InlineKeyboardButton(text="ទេ", callback_data="cancel_del_branch")
+    )
+    await callback.message.edit_text(f"តើអ្នកពិតជាចង់លុបសាខា **{branch_name}** មែនទេ?\n(ប្រវត្តិលក់នឹងនៅរក្សាទុកធម្មតា ប៉ុន្តែសាខានេះនឹងលែងបង្ហាញទៀតហើយ)", reply_markup=builder.as_markup(), parse_mode="Markdown")
+
+@router.callback_query(F.data == "cancel_del_branch")
+async def cb_cancel_del_branch(callback: types.CallbackQuery):
+    await callback.message.edit_text("ការលុបសាខាត្រូវបានបោះបង់។")
+    
+@router.callback_query(F.data.startswith("do_del_branch_"))
+async def cb_do_del_branch(callback: types.CallbackQuery):
+    branch_id = callback.data.split("do_del_branch_")[1]
+    res = supabase_client.delete_branch(branch_id)
+    if res:
+        await callback.message.edit_text("✅ បានលុបសាខាជោគជ័យ។ អ្នកដែលកំពុងប្រើប្រាស់សាខានេះពីមុន ត្រូវជ្រើសរើសសាខាថ្មីដើម្បីអាចបន្តប្រើប្រាស់បាន។")
+    else:
+        await callback.message.edit_text("❌ មានបញ្ហាក្នុងការលុបសាខា។")
 
 @router.message(F.text == "➕ បន្ថែមទំនិញថ្មី")
 async def process_add_new_item_btn(message: types.Message, state: FSMContext):
@@ -477,4 +535,79 @@ async def cb_select_branch(callback: types.CallbackQuery):
     branch_id = callback.data.split("select_branch_")[1]
     supabase_client.set_user_branch(callback.from_user.id, branch_id)
     await callback.message.answer("✅ បានកំណត់សាខាប្រចាំការរបស់អ្នកជោគជ័យ។ ចាប់ពីពេលនេះទៅ រាល់ប្រតិបត្តិការរបស់អ្នកនឹងត្រូវបានកត់ត្រាក្នុងសាខានេះ។")
+    await callback.answer()
+
+async def get_delete_multi_keyboard(items, selected_ids: set):
+    builder = InlineKeyboardBuilder()
+    for item in items[:80]:
+        item_id = item.get('id')
+        name = item.get('name', 'N/A')
+        barcode = item.get('barcode', 'N/A')
+        prefix = "✅" if item_id in selected_ids else "🔲"
+        btn_text = f"{prefix} {name} ({barcode})"
+        builder.add(types.InlineKeyboardButton(text=btn_text, callback_data=f"toggle_del_{item_id}"))
+    builder.adjust(1)
+    builder.row(
+        types.InlineKeyboardButton(text="✅ បញ្ជាក់ការលុប", callback_data="confirm_multi_delete"),
+        types.InlineKeyboardButton(text="❌ បោះបង់", callback_data="cancel_multi_delete")
+    )
+    return builder.as_markup()
+
+@router.message(F.text == "🗑 លុបទំនិញ")
+async def cb_delete_item(message: types.Message, state: FSMContext):
+    items = supabase_client.get_all_active_items()
+    if not items:
+        await message.answer("មិនមានទំនិញក្នុងប្រព័ន្ធទេ។")
+        return
+        
+    items = sorted(items, key=lambda x: x.get('name', ''))
+    await state.update_data(delete_selected_ids=[])
+    markup = await get_delete_multi_keyboard(items, set())
+    await message.answer("សូមជ្រើសរើសទំនិញដែលអ្នកចង់លុប (អាចជ្រើសរើសបានច្រើន)៖", reply_markup=markup)
+
+@router.callback_query(F.data.startswith("toggle_del_"))
+async def cb_toggle_del_item(callback: types.CallbackQuery, state: FSMContext):
+    item_id = callback.data.split("toggle_del_")[1]
+    data = await state.get_data()
+    selected_ids = set(data.get("delete_selected_ids", []))
+    
+    if item_id in selected_ids:
+        selected_ids.remove(item_id)
+    else:
+        selected_ids.add(item_id)
+        
+    await state.update_data(delete_selected_ids=list(selected_ids))
+    
+    items = supabase_client.get_all_active_items()
+    items = sorted(items, key=lambda x: x.get('name', ''))
+    
+    markup = await get_delete_multi_keyboard(items, selected_ids)
+    await callback.message.edit_reply_markup(reply_markup=markup)
+    await callback.answer()
+
+@router.callback_query(F.data == "confirm_multi_delete")
+async def cb_confirm_multi_delete(callback: types.CallbackQuery, state: FSMContext):
+    data = await state.get_data()
+    selected_ids = data.get("delete_selected_ids", [])
+    
+    if not selected_ids:
+        await callback.answer("សូមជ្រើសរើសទំនិញយ៉ាងហោចណាស់មួយ!", show_alert=True)
+        return
+        
+    success_count = 0
+    user_id = callback.from_user.id
+    for item_id in selected_ids:
+        res = supabase_client.delete_item_by_id(item_id)
+        if res:
+            success_count += 1
+            supabase_client.log_transaction(item_id, None, user_id, 'delete', 0)
+            
+    await callback.message.edit_text(f"✅ បានលុបទំនិញចំនួន {success_count}មុខ ចេញពីប្រព័ន្ធដោយជោគជ័យ។", parse_mode="Markdown")
+    await state.clear()
+    await callback.answer()
+
+@router.callback_query(F.data == "cancel_multi_delete")
+async def cb_cancel_multi_delete(callback: types.CallbackQuery, state: FSMContext):
+    await callback.message.edit_text("❌ ប្រតិបត្តិការលុបទំនិញត្រូវបានបោះបង់។")
+    await state.clear()
     await callback.answer()

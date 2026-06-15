@@ -49,7 +49,8 @@ async def process_pin(message: types.Message, state: FSMContext):
         return
         
     # Update DB
-    supabase_client.update_user_role(message.from_user.id, role)
+    full_name = message.from_user.full_name
+    supabase_client.update_user_role(message.from_user.id, role, full_name)
     
     # Show Keyboard
     keyboards = load_keyboards()

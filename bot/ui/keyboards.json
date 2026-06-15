@@ -3,7 +3,7 @@
     "keyboard": [
       [
         { "text": "🔍 ស្វែងរក / ពិនិត្យស្តុក" },
-        { "text": "📷 ស្កេនបាកូដ", "web_app": { "url": "https://your-domain.com/scanner" } }
+        { "text": "📷 ស្កេនបាកូដ", "web_app": { "url": "https://soft-ideas-change.loca.lt" } }
       ],
       [
         { "text": "🛒 បង់ប្រាក់រហ័ស" },
@@ -16,7 +16,7 @@
     "keyboard": [
       [
         { "text": "🔍 ស្វែងរក / ពិនិត្យស្តុក" },
-        { "text": "📷 ស្កេនបាកូដ", "web_app": { "url": "https://your-domain.com/scanner" } }
+        { "text": "📷 ស្កេនបាកូដ", "web_app": { "url": "https://soft-ideas-change.loca.lt" } }
       ],
       [
         { "text": "🛒 បង់ប្រាក់រហ័ស" },
@@ -37,6 +37,9 @@
       [
         { "text": "📋 មើលបញ្ជីទំនិញទាំងអស់" },
         { "text": "📜 ប្រវត្តិស្តុក" }
+      ],
+      [
+        { "text": "🗑 លុបទំនិញ" }
       ]
     ],
     "resize_keyboard": true

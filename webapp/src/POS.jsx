@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Camera, Search, ShoppingCart } from 'lucide-react';
+import { Camera, Search, ShoppingCart, X } from 'lucide-react';
 import { supabase } from './supabaseClient';
 
 function POS() {
@@ -27,7 +27,14 @@ function POS() {
   }
 
   const handleScan = () => {
-    alert("នឹងបើកកាមេរ៉ាស្កេន...");
+    if (window.Telegram?.WebApp?.showScanQrPopup) {
+      window.Telegram.WebApp.showScanQrPopup({ text: "សូមស្កេនបាកូដទំនិញ" }, (text) => {
+        setBarcode(text);
+        return true; // Return true to close the scanner popup
+      });
+    } else {
+      alert("មុខងារស្កេនកាមេរ៉ាគាំទ្រតែនៅលើកម្មវិធី Telegram ប៉ុណ្ណោះ។");
+    }
   };
 
   const handleCheckout = async () => {
@@ -88,15 +95,15 @@ function POS() {
 
   return (
     <div className="animate-fade-in">
-      <div className="glass-panel" style={{marginBottom: '20px', textAlign: 'center'}}>
-        <div style={{background: 'rgba(59, 130, 246, 0.1)', width: '80px', height: '80px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', color: 'var(--primary)', cursor: 'pointer'}} onClick={handleScan}>
-          <Camera size={40} />
+      <div className="glass-panel" style={{marginBottom: '24px', textAlign: 'center', padding: '32px 20px', cursor: 'pointer', transition: 'transform 0.2s ease'}} onClick={handleScan} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>
+        <div style={{background: 'rgba(59, 130, 246, 0.15)', width: '90px', height: '90px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', color: 'var(--primary)', boxShadow: '0 8px 24px rgba(59, 130, 246, 0.2)'}}>
+          <Camera size={44} />
         </div>
-        <h3 style={{margin: '0 0 8px'}}>ចុចទីនេះដើម្បីស្កេន</h3>
-        <p style={{color: 'var(--text-muted)', fontSize: '14px', margin: 0}}>ប្រើប្រាស់កាមេរ៉ាទូរស័ព្ទរបស់អ្នក</p>
+        <h2 style={{margin: '0 0 8px', fontSize: '22px'}}>ចុចទីនេះដើម្បីស្កេន</h2>
+        <p style={{color: 'var(--text-muted)', fontSize: '15px'}}>ប្រើប្រាស់កាមេរ៉ាទូរស័ព្ទរបស់អ្នក</p>
       </div>
 
-      <div style={{position: 'relative', marginBottom: '20px'}}>
+      <div style={{position: 'relative', marginBottom: '24px'}}>
         <input 
           type="text" 
           className="input-field" 
@@ -121,11 +128,11 @@ function POS() {
           ) : (
             recentTxns.map((txn, idx) => (
               <div key={idx} className="list-item">
-                <div>
-                  <div style={{fontWeight: '600'}}>{txn.items?.name || 'មិនស្គាល់'}</div>
-                  <div style={{fontSize: '12px', color: 'var(--text-muted)'}}>{txn.quantity} x ${txn.items?.price}</div>
+                <div style={{display: 'flex', flexDirection: 'column', gap: '4px'}}>
+                  <div style={{fontWeight: '600', fontSize: '16px', color: 'var(--text-main)'}}>{txn.items?.name || 'មិនស្គាល់'}</div>
+                  <div style={{fontSize: '14px', color: 'var(--text-muted)'}}>{txn.quantity} មុខ x ${txn.items?.price}</div>
                 </div>
-                <div style={{fontSize: '12px', color: 'var(--success)'}}>ជោគជ័យ</div>
+                <div className="badge" style={{background: 'rgba(16, 185, 129, 0.15)', color: 'var(--success)'}}>ជោគជ័យ</div>
               </div>
             ))
           )}
