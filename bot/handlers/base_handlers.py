@@ -1,7 +1,7 @@
 import json
 import os
 from aiogram import Router, types, F
-from aiogram.filters import CommandStart
+from aiogram.filters import CommandStart, Command
 
 router = Router()
 
@@ -27,6 +27,31 @@ async def cmd_start(message: types.Message, state: FSMContext):
         types.InlineKeyboardButton(text="👩‍🔧 ចូលជាបុគ្គលិក", callback_data="login_staff")
     )
     await message.answer("សូមស្វាគមន៍មកកាន់ប្រព័ន្ធគ្រប់គ្រងស្តុក!\n\nតើលោកអ្នកចង់ចូលប្រព័ន្ធក្នុងនាមជាអ្វី?", reply_markup=builder.as_markup())
+
+@router.message(Command("help"))
+async def cmd_help(message: types.Message):
+    help_text = (
+        "ℹ️ <b>ជំនួយ / Help</b>\n\n"
+        "🔑 <b>ការណែនាំអំពីការប្រើប្រាស់ (How to use):</b>\n"
+        "សូមប្រើប្រាស់ប៊ូតុងនៅលើក្តារចុច (Keyboard buttons) ឬវាយពាក្យបញ្ជាខាងក្រោម៖\n\n"
+        "👤 <b>សម្រាប់ម្ចាស់ហាង (Owner):</b>\n"
+        "• 📊 របាយការណ៍ប្រចាំថ្ងៃ ៖ មើលរបាយការណ៍លក់ប្រចាំថ្ងៃ\n"
+        "• 📊 របាយការណ៍ប្រចាំខែ ៖ មើលរបាយការណ៍លក់ប្រចាំខែ\n"
+        "• 📥 ទាញយកជា Excel ៖ ទាញយករបាយការណ៍ស្តុកទំនិញ\n"
+        "• ⚙️ កែប្រែស្តុកច្រើនដង ៖ កែប្រែស្តុកទំនិញលឿនរហ័ស\n"
+        "• 📋 មើលបញ្ជីទំនិញទាំងអស់ ៖ មើលបញ្ជីរាយនាមទំនិញទាំងអស់\n"
+        "• 📜 ប្រវត្តិស្តុក ៖ មើលប្រវត្តិប្រតិបត្តិការស្តុកថ្ងៃនេះ\n"
+        "• 🏢 ការកំណត់សាខា ៖ កំណត់ ឬបន្ថែម/លុបសាខាហាង\n"
+        "• ➕ បន្ថែមទំនិញថ្មី ៖ បន្ថែមទំនិញថ្មីចូលស្តុក\n"
+        "• 🗑 លុបទំនិញ ៖ លុបទំនិញចេញពីប្រព័ន្ធ\n"
+        "• 🔍 ស្វែងរក / ពិនិត្យស្តុក ៖ ស្វែងរកទំនិញតាមឈ្មោះ/បាកូដ\n"
+        "• 🛒 បង់ប្រាក់រហ័ស ៖ បញ្ចូលការលក់ទំនិញរហ័ស\n"
+        "• ⚠️ រាយការណ៍ទំនិញខូច ៖ កត់ត្រាទំនិញខូចខាត\n\n"
+        "🔄 <b>ផ្សេងៗ (Other Commands):</b>\n"
+        "• /start - ចាប់ផ្តើមឡើងវិញ ឬជ្រើសរើសតួនាទីថ្មី (Restart / Select Role)\n"
+        "• /help - បង្ហាញសារជំនួយនេះ (Show help message)"
+    )
+    await message.answer(help_text)
 
 @router.callback_query(F.data.in_(["login_owner", "login_staff"]))
 async def cb_login_selection(callback: types.CallbackQuery, state: FSMContext):

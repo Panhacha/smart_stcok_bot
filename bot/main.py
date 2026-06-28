@@ -37,8 +37,7 @@ async def lifespan(app: FastAPI):
         # Set bot commands
         commands = [
             types.BotCommand(command="start", description="ចាប់ផ្តើមប្រើប្រាស់ Bot / Start bot"),
-            # You can add more commands here if you have them, e.g.,
-            # types.BotCommand(command="help", description="ជំនួយ / Help")
+            types.BotCommand(command="help", description="ជំនួយ / Help")
         ]
         await bot.set_my_commands(commands)
         
